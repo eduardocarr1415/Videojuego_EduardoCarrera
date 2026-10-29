@@ -1,0 +1,95 @@
+using UnityEngine;
+
+// Controla una capa transparente delante de la selva y detrás del nivel.
+// El dibujo del fondo permanece quieto: solo animamos la atmósfera.
+[ExecuteAlways]
+[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
+public class AnimarSelva : MonoBehaviour
+{
+    // Estas casillas cambian la niebla, los rayos y los puntos de luz de la selva.
+    public Camera camara;
+    [Tooltip("Suelo cuya superficie marca la altura de la niebla.")]
+    public BoxCollider2D sueloReferencia;
+    [Min(0f)] public float alturaSobreSuelo = .35f;
+    [Min(.1f)] public float espesorNeblina = 1.4f;
+    public Color colorNeblina = new Color(.45f, .65f, .67f, 1f);
+    public Color colorRayos = new Color(.61f, .77f, .81f, 1f);
+
+    [Min(1f), Tooltip("Segundos que tarda en repetirse la animación.")]
+    public float duracionCiclo = 10f;
+    [Range(0f, 1f)] public float cantidadNeblina = .20f;
+    [Range(0f, 1f)] public float intensidadRayos = .20f;
+    [Range(0f, 1f)] public float brilloParticulas = .65f;
+
+    private MeshRenderer capa;
+    private MaterialPropertyBlock propiedades;
+    private float segundos;
+
+    // Identificadores de los parámetros del material, calculados una sola vez.
+    static readonly int Fase = Shader.PropertyToID("_Fase");
+    static readonly int Aspecto = Shader.PropertyToID("_Aspecto");
+    static readonly int Neblina = Shader.PropertyToID("_Neblina");
+    static readonly int Rayos = Shader.PropertyToID("_Rayos");
+    static readonly int Particulas = Shader.PropertyToID("_Particulas");
+    static readonly int Altura = Shader.PropertyToID("_AlturaNeblina");
+    static readonly int Espesor = Shader.PropertyToID("_EspesorNeblina");
+    static readonly int ColorNiebla = Shader.PropertyToID("_ColorNeblina");
+    static readonly int ColorLuz = Shader.PropertyToID("_ColorRayos");
+
+    void OnEnable()
+    {
+        // El bloque envía valores al material sin duplicarlo cada fotograma.
+        capa = GetComponent<MeshRenderer>();
+        propiedades = new MaterialPropertyBlock();
+        if (camara == null) camara = GetComponentInParent<Camera>();
+        ActualizarCapa();
+    }
+
+    void LateUpdate()
+    {
+        // Al perder o ganar, el juego congela también estos efectos.
+        if (Application.isPlaying)
+            segundos = Mathf.Repeat(segundos + Time.deltaTime, Mathf.Max(1f, duracionCiclo));
+        ActualizarCapa();
+    }
+
+    void OnDisable()
+    {
+        // Quitamos nuestros valores del material cuando apagamos este componente.
+        if (capa != null) capa.SetPropertyBlock(null);
+    }
+
+    void ActualizarCapa()
+    {
+        if (camara == null || !camara.orthographic || capa == null) return;
+
+        // El plano mide una unidad: lo ampliamos al tamaño de la pantalla.
+        float alto = camara.orthographicSize * 2f * 1.002f;
+        Vector3 escalaPadre = transform.parent == null ? Vector3.one : transform.parent.lossyScale;
+        if (Mathf.Abs(escalaPadre.x) < .0001f || Mathf.Abs(escalaPadre.y) < .0001f) return;
+        Vector3 escala = new Vector3(
+            alto * camara.aspect / Mathf.Abs(escalaPadre.x),
+            alto / Mathf.Abs(escalaPadre.y), 1f);
+        if ((transform.localScale - escala).sqrMagnitude > .00000001f)
+            transform.localScale = escala;
+
+        // Cambiamos parámetros sin crear un material nuevo en cada fotograma.
+        // Fase recorre 0 a 1 y vuelve a empezar; el shader la usa para animar.
+        propiedades.SetFloat(Fase, segundos / Mathf.Max(1f, duracionCiclo));
+        propiedades.SetFloat(Aspecto, camara.aspect);
+        propiedades.SetFloat(Neblina, cantidadNeblina);
+        propiedades.SetFloat(Rayos, intensidadRayos);
+        propiedades.SetFloat(Particulas, brilloParticulas);
+        // La niebla permanece a la altura del piso aunque cambie la cámara.
+        float alturaMundo = sueloReferencia == null
+            ? camara.transform.position.y - camara.orthographicSize * .5f
+            : sueloReferencia.bounds.max.y;
+        Vector3 centroNiebla = new Vector3(camara.transform.position.x,
+            alturaMundo + alturaSobreSuelo, 0f);
+        propiedades.SetFloat(Altura, camara.WorldToViewportPoint(centroNiebla).y);
+        propiedades.SetFloat(Espesor, espesorNeblina / (camara.orthographicSize * 2f));
+        propiedades.SetColor(ColorNiebla, colorNeblina);
+        propiedades.SetColor(ColorLuz, colorRayos);
+        capa.SetPropertyBlock(propiedades);
+    }
+}

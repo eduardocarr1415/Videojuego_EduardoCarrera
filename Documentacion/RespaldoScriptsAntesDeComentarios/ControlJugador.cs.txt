@@ -1,0 +1,128 @@
+// Movemos al personaje y permitimos saltar cuando pisa el suelo.
+// Colocamos este script en el objeto Jugador.
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ControlJugador : MonoBehaviour
+{
+    // Rapidez mueve a los lados; fuerzaSalto es la velocidad inicial hacia arriba.
+    public float rapidez = 6f;
+    public float fuerzaSalto = 10.5f;
+    // Solo detectamos como piso los colliders de esta capa.
+    public LayerMask capaSuelo;
+
+    // El cuerpo calcula la caída y el movimiento; la caja marca la zona que choca.
+    private Rigidbody2D cuerpo;
+    private BoxCollider2D caja;
+    // -1 es izquierda, 0 es quieto y 1 es derecha. Recordamos Espacio hasta la física.
+    private float direccion;
+    private bool saltoPendiente;
+    public ControlNivel nivel;
+
+    // Guardamos los componentes físicos del jugador.
+    void Awake()
+    {
+        cuerpo = GetComponent<Rigidbody2D>();
+        caja = GetComponent<BoxCollider2D>();
+    }
+
+    // Leemos las teclas de movimiento y salto.
+    void Update()
+    {
+        // Después de ganar o perder no seguimos leyendo teclas.
+        if (nivel != null && nivel.PartidaTerminada) return;
+        // Si caemos al hueco, mostramos la derrota. El botón permite reiniciar.
+        if (transform.position.y < -7f)
+        {
+            nivel.Morir();
+            return;
+        }
+
+        // A/izquierda resta; D/derecha suma. Si pulsamos ambas, se cancelan.
+        direccion = 0f;
+
+        if (Keyboard.current == null) return;
+
+        if (Keyboard.current.aKey.isPressed ||
+            Keyboard.current.leftArrowKey.isPressed)
+        {
+            direccion -= 1f;
+        }
+
+        if (Keyboard.current.dKey.isPressed ||
+            Keyboard.current.rightArrowKey.isPressed)
+        {
+            direccion += 1f;
+        }
+
+        // Leemos Espacio aquí para no perder pulsaciones entre pasos de física.
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            saltoPendiente = true;
+        }
+    }
+
+    // Aplicamos el movimiento durante la actualización de las físicas.
+    void FixedUpdate()
+    {
+        // Situamos una pequeña zona de detección bajo los pies.
+        Vector2 posicionPies = new Vector2(
+            caja.bounds.center.x,
+            caja.bounds.min.y - 0.03f
+        );
+
+        Vector2 tamanoDeteccion = new Vector2(
+            caja.bounds.size.x * 0.8f,
+            0.1f
+        );
+
+        // Comprobamos si esa zona toca la capa del suelo.
+        bool enSuelo = Physics2D.OverlapBox(
+            posicionPies,
+            tamanoDeteccion,
+            0f,
+            capaSuelo
+        ) != null;
+
+        // Movemos horizontalmente sin eliminar la caída.
+        Vector2 velocidad = new Vector2(
+            direccion * rapidez,
+            cuerpo.linearVelocity.y
+        );
+
+        // Saltamos solamente si estamos apoyados.
+        if (saltoPendiente && enSuelo)
+        {
+            velocidad.y = fuerzaSalto;
+            // Reproducimos el sonido solo cuando el salto se realiza.
+            nivel.sonidos?.Saltar();
+        }
+
+        cuerpo.linearVelocity = velocidad;
+
+        // Cada pulsación de Espacio se utiliza una sola vez.
+        saltoPendiente = false;
+    }
+    // Detectamos hojas, meta y peligros.
+    void OnTriggerEnter2D(Collider2D otro)
+    {
+        // Unity avisa al entrar en un collider marcado Is Trigger.
+        if (nivel != null && nivel.PartidaTerminada) return;
+        if (otro.CompareTag("Hoja"))
+        {
+            // Apagamos su collider primero para que otro contacto no sume dos hojas.
+            otro.enabled = false;
+            nivel.RecogerHoja();
+            Destroy(otro.gameObject);
+        }
+        else if (otro.CompareTag("Meta"))
+        {
+            // Comprobamos si reunimos todas las hojas.
+            nivel.IntentarGanar();
+        }
+        else if (otro.CompareTag("Pinchos"))
+        {
+            nivel.Morir();
+        }
+    }
+}

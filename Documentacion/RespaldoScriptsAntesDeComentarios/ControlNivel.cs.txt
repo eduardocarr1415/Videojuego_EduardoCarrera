@@ -1,0 +1,115 @@
+using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+// Va en AdministradorNivel. Coloca hojas y pinchos, cuenta lo recogido y muestra el final.
+public class ControlNivel : MonoBehaviour
+{
+    // Arrastramos los textos, prefabs, paneles y SonidosJuego a estas casillas.
+    public TMP_Text textoHojas;
+    public TMP_Text textoAviso;
+    public GameObject prefabHoja;
+    public GameObject prefabPinchos;
+    public GameObject panelDerrota;
+    public GameObject panelVictoria;
+    public SonidosJuego sonidos;
+
+    // Estos valores se reinician al recargar la escena, sin guardar una partida anterior.
+    private int hojasRecogidas;
+    private const int totalHojas = 10;
+    private bool derrotaMostrada;
+    private bool victoriaMostrada;
+    public bool PartidaTerminada => derrotaMostrada || victoriaMostrada;
+
+    // Cada pareja es X (recorrido) e Y (altura). Se pueden editar en el Inspector.
+    public Vector2[] posicionesHojas =
+    {
+        new Vector2(5f, -.25f), new Vector2(12f, .85f),
+        new Vector2(19f, .1f), new Vector2(26f, .65f),
+        new Vector2(33f, -.3f), new Vector2(40f, .85f),
+        new Vector2(47f, .15f), new Vector2(54f, .75f),
+        new Vector2(68f, .7f), new Vector2(82f, .65f)
+    };
+
+    // Repartimos los pinchos sobre piso firme, sin colocarlos en los dos huecos.
+    public float[] posicionesPinchos = { 9f, 16f, 22f, 31f, 36f, 43f, 50f, 56f, 65f, 71f, 78f, 85f };
+
+    void Start()
+    {
+        // Una partida nueva empieza en movimiento y sin paneles encima.
+        Time.timeScale = 1f;
+        hojasRecogidas = 0;
+        derrotaMostrada = false;
+        victoriaMostrada = false;
+        textoAviso.text = "";
+        panelDerrota.SetActive(false);
+        panelVictoria.SetActive(false);
+        CrearHojas();
+        CrearPinchos();
+        ActualizarContador();
+    }
+
+    void CrearHojas()
+    {
+        // Instantiate hace una copia del prefab por cada posición de la lista.
+        foreach (Vector2 posicion in posicionesHojas)
+            Instantiate(prefabHoja, new Vector3(posicion.x, posicion.y, 0f), Quaternion.identity);
+    }
+
+    public void RecogerHoja()
+    {
+        // ControlJugador avisa al tocar una hoja. Tras el final ya no sumamos.
+        if (PartidaTerminada) return;
+        hojasRecogidas++;
+        sonidos?.RecogerHoja();
+        ActualizarContador();
+    }
+
+    void ActualizarContador()
+    {
+        // Cambiamos las letras del texto que ya existe en el Canvas.
+        textoHojas.text = "Hojas: " + hojasRecogidas + " / " + totalHojas;
+    }
+
+    public void IntentarGanar()
+    {
+        // Tocar al Patrón no basta: primero hay que reunir las diez hojas.
+        if (PartidaTerminada) return;
+        if (hojasRecogidas < totalHojas)
+        {
+            textoAviso.text = "¡Te faltan hojas!";
+            return;
+        }
+        // Marcamos el final una vez. El audio sigue aunque se detengan las físicas.
+        victoriaMostrada = true;
+        sonidos?.Ganar();
+        textoAviso.text = "";
+        panelVictoria.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ReiniciarNivel()
+    {
+        // El botón Reintentar llama aquí. Recargar devuelve todo al estado inicial.
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void CrearPinchos()
+    {
+        // El prefab apoya su base en Y=-2.5 cuando su centro se coloca en -2.2.
+        foreach (float posicionX in posicionesPinchos)
+            Instantiate(prefabPinchos, new Vector3(posicionX, -2.2f, 0f), Quaternion.identity);
+    }
+
+    public void Morir()
+    {
+        // Se llama al tocar Pinchos o caer bajo el nivel. Arrancamos el OOF enseguida:
+        // no esperamos al panel ni usamos un temporizador.
+        if (PartidaTerminada) return;
+        derrotaMostrada = true;
+        sonidos?.Perder();
+        panelDerrota.SetActive(true);
+        Time.timeScale = 0f;
+    }
+}

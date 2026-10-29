@@ -1,0 +1,39 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// Va en el objeto AdministradorMenu de la escena MenuPrincipal.
+// Los botones llaman a estos métodos desde su apartado On Click del Inspector.
+public class ControlMenuPrincipal : MonoBehaviour
+{
+    public string escenaJuego = "SampleScene";
+    private bool cargando;
+
+    void Awake()
+    {
+        // Si venimos de una partida detenida, restauramos el tiempo normal al entrar.
+        Time.timeScale = 1f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Jugar()
+    {
+        // Evita dos cargas si pulsamos dos veces seguidas el botón principal.
+        if (cargando) return;
+        cargando = true;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(escenaJuego);
+    }
+
+    public void Salir()
+    {
+        // En Unity salimos de Play. En el juego exportado cerramos la aplicación.
+        // UNITY_EDITOR impide incluir código del editor dentro del ejecutable.
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+}

@@ -1,0 +1,62 @@
+// Seguimos al jugador suavemente durante el recorrido.
+// Colocamos este script en el objeto Main Camera.
+using UnityEngine;
+
+public class CamaraSigue : MonoBehaviour
+{
+    // Arrastramos Jugador aquí. Suavizado corrige desajustes de encuadre;
+    // el avance normal acompaña al jugador sin quedarse atrás.
+    public Transform jugador;
+    public float suavizado = 0.2f;
+
+    // SmoothDamp usa esta memoria para evitar tirones al cambiar de dirección.
+    private Vector3 velocidad;
+    private float ultimaXJugador;
+    private bool encuadrePreparado;
+
+    void OnEnable()
+    {
+        // Al cargar o volver a activar la cámara preparamos una referencia nueva.
+        encuadrePreparado = false;
+        velocidad = Vector3.zero;
+    }
+
+    // Movemos la cámara después de actualizar al personaje.
+    void LateUpdate()
+    {
+        // Esperamos hasta tener un jugador conectado.
+        if (jugador == null) return;
+
+        if (!encuadrePreparado)
+        {
+            // Empezamos encuadrados: evita que al arrancar el personaje parezca retroceder.
+            transform.position = new Vector3(jugador.position.x + 2f,
+                transform.position.y, transform.position.z);
+            ultimaXJugador = jugador.position.x;
+            encuadrePreparado = true;
+            return;
+        }
+
+        // Primero acompañamos exactamente el avance que se muestra del jugador.
+        // Su Rigidbody2D usa interpolación, así este desplazamiento ya llega suavizado.
+        // Antes la cámara seguía avanzando para alcanzarlo y parecía empujarlo atrás.
+        float avance = jugador.position.x - ultimaXJugador;
+        ultimaXJugador = jugador.position.x;
+        transform.position += new Vector3(avance, 0f, 0f);
+
+        // Miramos dos unidades por delante y conservamos la altura y el Z.
+        Vector3 destino = new Vector3(
+            jugador.position.x + 2f,
+            transform.position.y,
+            transform.position.z
+        );
+
+        // Solo corregimos suavemente un posible desajuste de encuadre.
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            destino,
+            ref velocidad,
+            suavizado
+        );
+    }
+}

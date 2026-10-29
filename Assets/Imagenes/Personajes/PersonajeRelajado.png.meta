@@ -1,0 +1,485 @@
+fileFormatVersion: 2
+guid: b2bb048cfa439c0428861d7b887d5892
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1967393829596956233
+    second: PersonajeRelajado_0
+  - first:
+      213: -6844985674905197007
+    second: PersonajeRelajado_1
+  - first:
+      213: -1403394749701500488
+    second: PersonajeRelajado_2
+  - first:
+      213: -590077220279735291
+    second: PersonajeRelajado_3
+  - first:
+      213: -9051652835867868012
+    second: PersonajeRelajado_4
+  - first:
+      213: -5565831845973945285
+    second: PersonajeRelajado_5
+  - first:
+      213: -7300269202966614788
+    second: PersonajeRelajado_6
+  - first:
+      213: -189264152726377735
+    second: PersonajeRelajado_7
+  - first:
+      213: 5787524273737777445
+    second: PersonajeRelajado_8
+  - first:
+      213: 162694340649030748
+    second: PersonajeRelajado_9
+  - first:
+      213: -5688752020606812174
+    second: PersonajeRelajado_10
+  - first:
+      213: 5325065694670294396
+    second: PersonajeRelajado_11
+  - first:
+      213: 5615174588981289180
+    second: PersonajeRelajado_12
+  - first:
+      213: 6994293608466721435
+    second: PersonajeRelajado_13
+  - first:
+      213: 8847951703425791070
+    second: PersonajeRelajado_14
+  - first:
+      213: 5902747434230264028
+    second: PersonajeRelajado_15
+  - first:
+      213: -3851536736109781977
+    second: PersonajeRelajado_16
+  - first:
+      213: 1582444033531088519
+    second: PersonajeRelajado_17
+  - first:
+      213: 2487625487483353737
+    second: PersonajeRelajado_18
+  - first:
+      213: 1059898814458412697
+    second: PersonajeRelajado_19
+  - first:
+      213: -4999171620029430355
+    second: PersonajeRelajado_20
+  - first:
+      213: -1932641409009970054
+    second: PersonajeRelajado_21
+  - first:
+      213: 7601039363702265228
+    second: PersonajeRelajado_22
+  - first:
+      213: 2361827635341593656
+    second: PersonajeRelajado_23
+  - first:
+      213: 3223124146959521003
+    second: PersonajeRelajado_24
+  - first:
+      213: 3085298462719608392
+    second: PersonajeRelajado_25
+  - first:
+      213: -7128672068278415282
+    second: PersonajeRelajado_26
+  - first:
+      213: 7468879745463163907
+    second: PersonajeRelajado_27
+  - first:
+      213: 4917695647063715221
+    second: PersonajeRelajado_28
+  - first:
+      213: 8793633641425918195
+    second: PersonajeRelajado_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Quieto_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 722
+        width: 362
+        height: 364
+      alignment: 9
+      pivot: {x: 0.5, y: 0.021978023}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61337bebf44bbdd41ad81e5463959319
+      internalID: 1267193146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quieto_02
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 722
+        width: 362
+        height: 364
+      alignment: 9
+      pivot: {x: 0.5, y: 0.021978023}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65068e4e66290974ebb833b753e06f3e
+      internalID: 1820102171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quieto_03
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 722
+        width: 362
+        height: 364
+      alignment: 9
+      pivot: {x: 0.5, y: 0.021978023}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8c290086a798c245b3fb317a75ed2b4
+      internalID: 1635290337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quieto_04
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 722
+        width: 362
+        height: 364
+      alignment: 9
+      pivot: {x: 0.5, y: 0.021978023}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a591e598b97dc534e96c7db18f24eaf1
+      internalID: 788347159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Caminar_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 376
+        width: 362
+        height: 346
+      alignment: 9
+      pivot: {x: 0.5, y: 0.00867052}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a4dfab33466d7488ad8f0de0183a7b
+      internalID: -291526997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Caminar_02
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 376
+        width: 362
+        height: 346
+      alignment: 9
+      pivot: {x: 0.5, y: 0.014450867}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc64dfcc10eeaa040a94cdbb309d1ef4
+      internalID: -1806596387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Caminar_03
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 376
+        width: 362
+        height: 346
+      alignment: 9
+      pivot: {x: 0.5, y: 0.011560693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eddee384c275c85489026c0f4d89c0cf
+      internalID: 98354534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Caminar_04
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 376
+        width: 362
+        height: 346
+      alignment: 9
+      pivot: {x: 0.5, y: 0.011560693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48cee5ec2da583740b2d69aa8152c6ff
+      internalID: -826007010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Saltar_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 362
+        height: 376
+      alignment: 9
+      pivot: {x: 0.5, y: 0.061170213}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f66cdcb41a4971147a20b95df0fb73fd
+      internalID: 1455351958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Saltar_02
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 0
+        width: 362
+        height: 376
+      alignment: 9
+      pivot: {x: 0.5, y: 0.05319149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d9c90cab727fcc4f8dbf4c3a9b22a74
+      internalID: -1248613866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Saltar_03
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 0
+        width: 362
+        height: 376
+      alignment: 9
+      pivot: {x: 0.5, y: 0.19148937}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e17f6018b4316f94b9dfb7edd5442060
+      internalID: -1838174569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Saltar_04
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 0
+        width: 362
+        height: 376
+      alignment: 9
+      pivot: {x: 0.5, y: 0.055851065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4d20832a88099d4984160f2ace6f0be
+      internalID: 758797985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 367af263c6ea26246954d78434a76f4c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Caminar_01: -291526997
+      Caminar_02: -1806596387
+      Caminar_03: 98354534
+      Caminar_04: -826007010
+      Quieto_01: 1267193146
+      Quieto_02: 1820102171
+      Quieto_03: 1635290337
+      Quieto_04: 788347159
+      Saltar_01: 1455351958
+      Saltar_02: -1248613866
+      Saltar_03: -1838174569
+      Saltar_04: 758797985
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

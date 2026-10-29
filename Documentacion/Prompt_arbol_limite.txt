@@ -1,0 +1,5 @@
+Herramienta: generación de imágenes integrada, fondo transparente.
+Archivo final: Assets/Imagenes/Decoracion/ArbolLimiteSelva.png
+Uso: el mismo PNG en Arbol1 y Arbol2, con el segundo volteado.
+
+Create a production-ready 2D side-scrolling jungle platformer sprite: ONE large boundary tree, full tree including gnarled wide roots, thick tall trunk, generous leafy canopy. Hand-painted cartoon videogame style, clean readable shapes, dark teal green leaves, warm dark brown bark with moss and hanging vines. Mysterious tropical jungle, slightly spooky but playful, crisp edges, restrained detail matching a cartoon grass-and-dirt platformer. Front/side orthographic view, no perspective ground plane, no background, no scenery, no characters, no text, no border, no shadows detached from roots. The trunk must be thick and visibly block passage at player height. Root base horizontal at bottom; entire canopy fits within canvas with small transparent margin. A single isolated complete tree centered, transparent background.

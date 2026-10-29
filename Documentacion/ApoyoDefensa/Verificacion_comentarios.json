@@ -1,0 +1,50 @@
+[
+  {
+    "archivo": "ControlJugador.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 30,
+    "sha_instrucciones": "4bf85e4794de933fa9c9a24d73df9f833a0e6edbffd00ad51ed25622869724be"
+  },
+  {
+    "archivo": "ControlNivel.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 23,
+    "sha_instrucciones": "5324628d8474ecab48b56a09f4a81043cb3c429ce4316660313fb7216b5b4251"
+  },
+  {
+    "archivo": "ControlMenuPrincipal.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 9,
+    "sha_instrucciones": "58529fbc9ef09c0b7026c66ee905e6e1511c8f2eb64d69325925f7a5bb768f22"
+  },
+  {
+    "archivo": "SonidosJuego.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 14,
+    "sha_instrucciones": "2e726cb0e71979aef9298db857d0598f7a47754559be03ab5a78d34dc8cbe483"
+  },
+  {
+    "archivo": "CamaraSigue.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 12,
+    "sha_instrucciones": "bf35b550c29bc7e0a1897fd80c589f122709ef996cf6450456a0c28634d56feb"
+  },
+  {
+    "archivo": "AnimarJugador.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 18,
+    "sha_instrucciones": "19b9491affd88b806075361aba1a4893d2940caa31ecdc50ab72571bed2571ba"
+  },
+  {
+    "archivo": "AjustarFondo.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 13,
+    "sha_instrucciones": "99483b581caaaeea9bf4c25d14a5e513b9591b0047c8375adff5456006ef804a"
+  },
+  {
+    "archivo": "AnimarSelva.cs",
+    "instrucciones_iguales": true,
+    "comentarios": 14,
+    "sha_instrucciones": "0aa4906c9fdd9f22f2b9da7198ac70f0f2565e1acd83d4eddaeb69ca584daa90"
+  }
+]

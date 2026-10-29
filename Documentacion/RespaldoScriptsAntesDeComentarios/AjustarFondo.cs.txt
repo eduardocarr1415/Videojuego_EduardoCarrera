@@ -1,0 +1,61 @@
+using UnityEngine;
+
+// La imagen acompaña a la cámara porque es un objeto hijo suyo.
+[ExecuteAlways]
+[RequireComponent(typeof(SpriteRenderer))]
+public class AjustarFondo : MonoBehaviour
+{
+    [Tooltip("Cámara cuya pantalla debe cubrir el fondo.")]
+    public Camera camara;
+
+    private SpriteRenderer imagen;
+
+    void OnEnable()
+    {
+        // Buscamos el dibujo y, si falta la referencia, la cámara del objeto padre.
+        imagen = GetComponent<SpriteRenderer>();
+        if (camara == null) camara = GetComponentInParent<Camera>();
+        AjustarTamano();
+    }
+
+    void LateUpdate()
+    {
+        // Volvemos a ajustar por si cambia el tamaño de la ventana Game.
+        AjustarTamano();
+    }
+
+    // Cubrimos la pantalla conservando las proporciones de la imagen.
+    // Si la ventana es más estrecha, recortamos los bordes sin deformar.
+    public void AjustarTamano()
+    {
+        if (camara == null || !camara.orthographic) return;
+        if (imagen == null) imagen = GetComponent<SpriteRenderer>();
+        if (imagen.sprite == null) return;
+
+        Vector2 tamanoImagen = imagen.sprite.bounds.size;
+        if (tamanoImagen.x <= 0f || tamanoImagen.y <= 0f) return;
+
+        // Orthographic Size es la mitad de la altura visible; de ahí el doble.
+        float altoPantalla = camara.orthographicSize * 2f;
+        float anchoPantalla = altoPantalla * camara.aspect;
+        float escala = Mathf.Max(
+            anchoPantalla / tamanoImagen.x,
+            altoPantalla / tamanoImagen.y
+        ) * 1.002f; // Un margen pequeño evita líneas en los bordes.
+
+        // Descontamos la escala del padre para que no estire el fondo sin querer.
+        Vector3 escalaPadre = transform.parent == null
+            ? Vector3.one : transform.parent.lossyScale;
+        if (Mathf.Abs(escalaPadre.x) < .0001f || Mathf.Abs(escalaPadre.y) < .0001f) return;
+
+        Vector3 nuevoTamano = new Vector3(
+            escala / Mathf.Abs(escalaPadre.x),
+            escala / Mathf.Abs(escalaPadre.y),
+            1f
+        );
+
+        // Solo escribimos cuando cambió: evita marcar la escena a cada fotograma.
+        if ((transform.localScale - nuevoTamano).sqrMagnitude > .00000001f)
+            transform.localScale = nuevoTamano;
+    }
+}

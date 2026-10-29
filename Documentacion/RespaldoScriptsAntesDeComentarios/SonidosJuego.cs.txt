@@ -1,0 +1,64 @@
+using UnityEngine;
+
+// Reproduce los efectos del juego sin depender del tiempo de las físicas.
+[RequireComponent(typeof(AudioSource))]
+public class SonidosJuego : MonoBehaviour
+{
+    // Un AudioClip es la grabación; las casillas se rellenan desde el Inspector.
+    public AudioClip salto;
+    public AudioClip hoja;
+    public AudioClip derrota;
+    public AudioClip victoria;
+    // Es otro reproductor, separado de los efectos, que mantiene la canción del nivel.
+    public AudioSource musicaFondo;
+
+    // 0 es silencio; 1 reproduce el volumen completo sin amplificar el archivo.
+    [Range(0f, 1f)] public float volumenSalto = 1f;
+    [Range(0f, 1f)] public float volumenHoja = 0.4f;
+    [Range(0f, 1f)] public float volumenResultado = 0.65f;
+
+    // AudioSource es el reproductor. La bandera evita repetir el resultado final.
+    private AudioSource fuente;
+    private bool partidaTerminada;
+
+    void Awake()
+    {
+        fuente = GetComponent<AudioSource>();
+        fuente.playOnAwake = false;
+        fuente.loop = false;
+        fuente.spatialBlend = 0f; // Sonido 2D: se oye igual en todo el nivel.
+        // Los dejamos en memoria antes del primer contacto para no leerlos al morir.
+        foreach (AudioClip clip in new[] { salto, hoja, derrota, victoria })
+            if (clip != null) clip.LoadAudioData();
+    }
+
+    public void Saltar()
+    {
+        // ControlJugador llama solo al ejecutar un salto estando apoyado.
+        if (!partidaTerminada && salto != null)
+            fuente.PlayOneShot(salto, volumenSalto);
+    }
+
+    public void RecogerHoja()
+    {
+        // PlayOneShot deja oír otra hoja aunque el efecto anterior aún termine.
+        if (!partidaTerminada && hoja != null)
+            fuente.PlayOneShot(hoja, volumenHoja);
+    }
+
+    // Las dos pantallas usan el mismo proceso, cambiando la grabación elegida.
+    public void Perder() { ReproducirResultado(derrota); }
+    public void Ganar() { ReproducirResultado(victoria); }
+
+    private void ReproducirResultado(AudioClip sonido)
+    {
+        // Evitamos repetir el efecto al tocar varios peligros o la meta.
+        if (partidaTerminada) return;
+        partidaTerminada = true;
+        // Quitamos la canción para que se escuche claramente el OOF o la frase de victoria.
+        if (musicaFondo != null) musicaFondo.Stop();
+        fuente.Stop();
+        if (sonido != null) fuente.PlayOneShot(sonido, volumenResultado);
+        // AudioSource continúa sonando aunque ControlNivel ponga timeScale a cero.
+    }
+}
